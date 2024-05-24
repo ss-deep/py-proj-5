@@ -6,7 +6,6 @@ from model import db,User,Movie,Rating,connect_to_db
 # Functions start here!
 def create_user(email, password):
     """Create and return a new user."""
-
     user = User(email=email, password=password)
     db.session.add(user)
     db.session.commit()
@@ -35,6 +34,11 @@ def create_rating(user, movie, score):
     db.session.add(rating)
     db.session.commit()
     return rating
+
+def get_user_by_email(email):
+    user=User.query.filter(User.email==email).first()
+    return user if user else None
+    # return User.query.filter(User.email == email).first()
 
 
 # connect you to the database when you run crud.py

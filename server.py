@@ -34,6 +34,32 @@ def single_user(user_id):
         user=crud.get_single_user(user_id)
         return render_template('user_details.html',user=user)
 
+@app.route('/users',methods=["POST"])
+def register_user():
+    email=request.form.get('email')
+    password=request.form.get('password')
+    result=crud.get_user_by_email(email)
+    if result:
+        flash("User already exists.")
+        print(f"result : {result}")
+    else:
+
+        flash("User created.")
+    return render_template("homepage.html")
+
+@app.route('/login',methods=['POST'])
+def login():
+    session['user_id']=0
+    email=request.form.get('email')
+    password=request.form.get('password')
+    user=crud.get_user_by_email(email)
+    if user and user.password==password:
+        flash("Login Successful!")
+        session['user_id']=user.user_id
+        # print(session['user_id'])
+    else:
+        flash("Please enter correct email or password")
+    return render_template("homepage.html")
 
 if __name__ == "__main__":
     connect_to_db(app)
