@@ -42,7 +42,7 @@ class Movie(db.Model):
     
 
     def __repr__(self):
-        return f'<Movie movie_id={self.movie_id} Title={self.title}>'
+        return f'<Movie movie_id={self.movie_id} Title={self.poster_path}>'
 
 class Rating(db.Model):
 
@@ -63,5 +63,7 @@ if __name__ == "__main__":
     from server import app
     connect_to_db(app,echo=False)
 
-    with app.app_context():
-        db.create_all()
+
+#you will need this only if want to create db
+    # with app.app_context():
+    #     db.create_all()
