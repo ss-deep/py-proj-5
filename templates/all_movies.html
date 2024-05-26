@@ -5,11 +5,11 @@
 {% block body %}
 <div id="movie-list" class="mx-2 my-2">
     {% for movie in movies %}
-    <div class="card text-center m-2">
+    <div class="card text-center ">
         <div div class="card-body">
           <img class="movie-image card-img-top" src="{{ movie.poster_path }}">
           <h5 class="card-title mt-1"> 
-            <a href="/movie/{{movie.movie_id}}">
+            <a class="stretched-link" href="/movie/{{movie.movie_id}}">
              {{ movie.title }}
             </a>
           </h5 >

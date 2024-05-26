@@ -16,12 +16,12 @@
         <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
         <div class="container-fluid">
             <ul class="nav col-12 me-lg-auto my-2 justify-content-center">
-                <li><a class="nav text-decoration-none" href="/movies">View all movies</a></li>
-                <li><a class="nav text-decoration-none" href="/users">View all users</a></li>
+                <li><a class="nav text-decoration-none text-white" href="/movies">View all movies</a></li>
+                <li><a class="nav text-decoration-none text-white" href="/users">View all users</a></li>
                 {% if 'user_id' in session %}
-                    <li><a class="nav text-decoration-none" href="/logout">Log Out</a></li>
+                    <li><a class="nav text-decoration-none text-white" href="/logout">Log Out</a></li>
                 {% else %}
-                    <li><a class="nav text-decoration-none " href="/">Log In</a></li>
+                    <li><a class="nav text-decoration-none text-white" href="/">Log In</a></li>
 
                 {% endif %}
             </ul>

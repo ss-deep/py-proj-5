@@ -12,7 +12,7 @@ app.app_context().push()
 
 @app.route('/')
 def homepage():
-    session.clear()
+    # session.clear()
     # print(f"user_id: {session['user_id']}")
     return render_template('homepage.html')
 
@@ -23,9 +23,20 @@ def all_movies():
 
 @app.route('/movie/<movie_id>')
 def single_movie(movie_id):
-        movie=crud.get_single_movie(movie_id)
-        return render_template('movie_details.html',movie=movie)
+    if 'user_id' in session:
+        movie,rating=crud.get_single_movie(movie_id,session['user_id'])
+        return render_template('movie_details.html',movie=movie,rating=rating)
+    else:
+        flash('Please login to see the details')
+        return render_template('homepage.html')
 
+@app.route('/change_rating/<movie_id>', methods=['POST'])
+def change_rating(movie_id):
+    new_rating = request.form.get('options')
+    crud.update_rating(movie_id,session['user_id'],new_rating)
+    # return single_movie(movie_id)
+    return redirect(url_for('single_movie', movie_id=movie_id))
+    
 @app.route('/users')
 def all_users():
     users=crud.get_all_users()
@@ -43,10 +54,10 @@ def register_user():
     result=crud.get_user_by_email(email)
     if result:
         flash("User already exists.")
-        print(f"result : {result}")
+    elif email and password:
+        flash("User created. Please Login.")
     else:
-
-        flash("User created.")
+        flash("Please enter email or password")
     return render_template("homepage.html")
 
 
@@ -61,6 +72,7 @@ def login():
         # print(session['user_id'])
     else:
         flash("Please enter correct email or password")
+        return render_template("homepage.html")
     return redirect('/movies')
 
 @app.route('/logout')

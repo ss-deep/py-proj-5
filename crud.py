@@ -26,14 +26,28 @@ def create_movie(overview, poster_path, release_date, title ):
 def get_all_movies():
     return Movie.query.all()
 
-def get_single_movie(movie_id):
-    return Movie.query.get(movie_id)
+def get_single_movie(movie_id,user_id):
+    movie=Movie.query.get(movie_id)
+    rating=Rating.query.filter_by(user_id=user_id, movie_id=movie_id).first()
+    return movie,rating
 
 def create_rating(user, movie, score):
     rating=Rating(user=user, movie=movie, score=score)
     db.session.add(rating)
     db.session.commit()
     return rating
+
+def update_rating(movie_id,user_id,new_rating):
+    rating=Rating.query.filter_by(user_id=user_id, movie_id=movie_id).first()
+    if not rating:
+        user = User.query.get(user_id)
+        movie = Movie.query.get(movie_id)
+        return create_rating(user,movie,new_rating)
+    else:
+        rating.score=new_rating
+        db.session.commit()
+        return rating
+    
 
 def get_user_by_email(email):
     user=User.query.filter(User.email==email).first()

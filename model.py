@@ -42,7 +42,7 @@ class Movie(db.Model):
     
 
     def __repr__(self):
-        return f'<Movie movie_id={self.movie_id} Title={self.poster_path}>'
+        return f'<Movie movie_id={self.movie_id} Title={self.title}>'
 
 class Rating(db.Model):
 

@@ -4,16 +4,60 @@
 {% endblock %}
 {% block body %}
 
-<div class="details-card my-3" >
+<div class=" my-3" >
     <div class="row g-0">
       <div class="col-md-4">
         <img src="{{ movie.poster_path }}" class="img-fluid rounded-start">
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title">{{movie.title}}</h5>
-          <p class="card-text text-muted">{{movie.overview}}</p>
-          <p class="card-text">Ratings : </p>
+            <h5 class="card-title movie-title mb-3">{{movie.title}}</h5>
+            <p class="card-text text-muted">{{movie.overview}}</p>
+            <p class="card-text"><strong>Rating :</strong> {{rating.score if rating else 0}}</p>
+            <strong>Change Rating :</strong>
+            <form method="POST" action="/change_rating/{{movie.movie_id}}">
+                <div class="radio-button-group">
+                    <input type="radio" id="option1" name="options" value="1">
+                    <label for="option1">1</label>
+
+                    <input type="radio" id="option2" name="options" value="2">
+                    <label for="option2">2</label>
+                    
+                    <input type="radio" id="option3" name="options" value="3">
+                    <label for="option3">3</label>
+
+                    <input type="radio" id="option4" name="options" value="4">
+                    <label for="option4">4</label>
+
+                    <input type="radio" id="option5" name="options" value="5">
+                    <label for="option5">5</label>
+
+                </div>
+                <button type="submit" class="btn btn-secondary mt-1">Save</button>
+            </form>
+            <!-- <form method="POST" action="/change_rating">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="number" id="number1" value="1">
+                    <label class="form-check-label" for="number1">1</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="number" id="number2" value="2">
+                    <label class="form-check-label" for="number2">2</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="number" id="number3" value="3">
+                    <label class="form-check-label" for="number3">3</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="number" id="number4" value="4">
+                    <label class="form-check-label" for="number4">4</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="number" id="number5" value="5">
+                    <label class="form-check-label" for="number5">5</label>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Save</button>
+            </form> -->
         </div>
       </div>
     </div>
