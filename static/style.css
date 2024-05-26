@@ -1,0 +1,41 @@
+.movie-image {
+    height: 180px;
+    /* width: 200px; */
+ }
+ .card{
+   height: 330px;
+   width: 250px;
+ }
+ .card-title{
+    font-weight: 600;
+    
+ }
+ .details{
+   height: auto;
+   width: 350px;
+ }
+ #movie-list{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+ }
+ li>a{
+    margin-right: 20px;
+    color: white;
+  }
+ 
+ a{
+   text-decoration: none;
+   color: black;
+ }
+ .cart{
+   display: flex;
+   flex-direction: column;
+   align-items: end;
+   justify-content: center;
+ }
+
+ .my-form{
+    width:500px;
+ }

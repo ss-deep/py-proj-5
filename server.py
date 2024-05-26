@@ -1,5 +1,5 @@
 """Server for movie ratings app."""
-from flask import (Flask, render_template, request, flash, session, redirect)
+from flask import (Flask, render_template, request, flash, session, redirect,url_for)
 from model import connect_to_db, db
 import crud
 from jinja2 import StrictUndefined
@@ -12,6 +12,8 @@ app.app_context().push()
 
 @app.route('/')
 def homepage():
+    session.clear()
+    # print(f"user_id: {session['user_id']}")
     return render_template('homepage.html')
 
 @app.route('/movies')
@@ -47,9 +49,9 @@ def register_user():
         flash("User created.")
     return render_template("homepage.html")
 
+
 @app.route('/login',methods=['POST'])
 def login():
-    session['user_id']=0
     email=request.form.get('email')
     password=request.form.get('password')
     user=crud.get_user_by_email(email)
@@ -59,7 +61,13 @@ def login():
         # print(session['user_id'])
     else:
         flash("Please enter correct email or password")
-    return render_template("homepage.html")
+    return redirect('/movies')
+
+@app.route('/logout')
+def logout():
+     session.clear()
+     flash('Logged out!')
+     return render_template("homepage.html")
 
 if __name__ == "__main__":
     connect_to_db(app)
