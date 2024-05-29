@@ -55,6 +55,7 @@ def register_user():
     if result:
         flash("User already exists.")
     elif email and password:
+        crud.create_user(email, password)
         flash("User created. Please Login.")
     else:
         flash("Please enter email or password")
